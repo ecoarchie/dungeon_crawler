@@ -3,6 +3,7 @@ mod map_builder;
 mod camera;
 mod components;
 mod spawners;
+mod systems;
 
 mod prelude {
     pub use bracket_lib::prelude::*;
@@ -18,6 +19,7 @@ mod prelude {
     pub use crate::camera::*;
     pub use crate::components::*;
     pub use crate::spawners::*;
+    pub use crate::systems::*;
 }
 
 use prelude::*;
@@ -51,8 +53,9 @@ impl GameState for State {
         ctx.cls();
         ctx.set_active_console(1);
         ctx.cls();
-        //TODO Execute Systems
-        //TODO Render Draw Buffer
+        self.resources.insert(ctx.key);
+        self.systems.execute(&mut self.ecs, &mut self.resources);
+        render_draw_buffer(ctx).expect("Render error");
     }
 }
 fn main() -> BError {
