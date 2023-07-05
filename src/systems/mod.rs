@@ -9,6 +9,7 @@ mod movement;
 mod player_input;
 mod random_move;
 mod tooltips;
+mod chasing;
 
 pub fn build_imput_scheduler() -> Schedule {
     Schedule::builder()
